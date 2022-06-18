@@ -18,14 +18,19 @@ def search_items(url:str) -> list:
             price = str.find_all(class_="price")
 
             ## /* 臨時価格が存在するため、1以上とする */
-            if len(price) >= 1:
+            if 1 <= len(price) <= 2:
                 price_list = [i.text for i in price]
             else:
                 ## 現在価格が取得できない場合、次の商品情報を処理する
                 continue
 
-            item_dict = {"name" : name.text, "price": price_list}
-            result.append(item_dict)
+            if len(price_list) == 1:
+                tmp_list = [name.text, price_list[0], "-"]
+            elif len(price_list) == 2:
+                tmp_list = [name.text, price_list[0], price_list[1]]
+            else:
+                continue
+            result.append(tmp_list)
 
             ## 遅延処理
             time.sleep(0.1)

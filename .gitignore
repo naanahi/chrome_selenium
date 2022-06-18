@@ -1,3 +1,6 @@
 settings.py
 *.png
 *.pyc
+*.ipynb
+*.csv
+/.ipynb_checkpoints/
