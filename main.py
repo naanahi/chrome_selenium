@@ -5,12 +5,12 @@ from bs4 import BeautifulSoup
 import settings
 from search_items import search_items
 from search_word import search_word
-
+from search_pages import search_pages
 import pandas as pd
+import urllib.parse as urlparse
 
 URL = settings.URL
-ID = settings.ID
-PASSWORD = settings.PASSWORD
+SEARCH_WORD = settings.SEARCH_WORD
 
 def main():
     options = webdriver.ChromeOptions()
@@ -19,22 +19,25 @@ def main():
 
     driver = webdriver.Chrome(options=options)
     driver.get(URL)
-
-    ## 遅延処理
     time.sleep(5)
 
     ## アイテムを検索する
     driver = search_word(driver)
     time.sleep(5)
 
-    ## 現在のURLを取得する
-    current_url = driver.current_url
+    ## 現在のURLから、遷移先ページを取得する（ページネーションが存在する場合、要素が複数になる）
+    search_page_list = search_pages(URL, driver.current_url)
 
-    ## 現在のURLをもとに商品情報(name, price)をリスト化する
-    item_info = search_items(current_url)
+    for index, search_page in enumerate(search_page_list):
+        # 遷移先ページURLをもとに商品情報(name, price)をリスト化する
+        item_info = search_items(search_page)
 
-    df = pd.DataFrame(item_info,columns =['商品名','価格', 'セール価格'])
-    df.to_csv("items.csv")
+        # データフレームを作成する
+        df = pd.DataFrame(item_info,columns =['商品名','価格', 'セール価格'])
+
+        # データフレームをCSV出力する
+        df.to_csv(f".\\csvdata\\Search_{SEARCH_WORD}_No.{index}.csv")
+        time.sleep(5)
 
     time.sleep(10)
     driver.quit()

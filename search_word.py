@@ -4,7 +4,7 @@ import settings
 
 SEARCH_WORD = settings.SEARCH_WORD
 
-def search_word(driver):
+def search_word(driver:str) -> str:
     ## ログイン後画面
     search_box = driver.find_element_by_css_selector(".p-header__search input")
     search_box.send_keys(SEARCH_WORD)
