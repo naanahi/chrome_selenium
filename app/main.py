@@ -9,6 +9,7 @@ from search_pages import search_pages
 from dataframe import create_dataframe
 from create_sqlite import create_sqlite
 from read_sqlite import read_sqlite
+from change_word import change_word
 
 import pandas as pd
 import urllib.parse as urlparse
@@ -24,7 +25,7 @@ def main():
     ## バックグラウンド実行する際に以下を有効にする
     options.add_argument('--headless')
     ## Dockerで動かすとなぜか怒られるので以下を追加
-    options.add_argument("--no-sandbox")
+    ## options.add_argument("--no-sandbox")
 
     driver = webdriver.Chrome(options=options)
     driver.get(URL)
@@ -33,6 +34,9 @@ def main():
     ## アイテムを検索する
     driver = search_word(driver)
     time.sleep(5)
+
+    ## 検索に使用したワードをローマ字に変換しておく
+    search_roman_alphabet = change_word(SEARCH_WORD)
 
     ## 現在のURLから、遷移先ページを取得する（ページネーションが存在する場合、要素が複数になる）
     search_page_list = search_pages(URL, driver.current_url)
@@ -45,13 +49,13 @@ def main():
         df = create_dataframe(item_info, DF_COLUMNS)
 
         # データフレームをDBに登録する
-        create_sqlite(df)
+        create_sqlite(df, search_roman_alphabet)
 
         # DBの読み出し(条件指定を行いたい)
-        df = read_sqlite()
+        df = read_sqlite(search_roman_alphabet)
 
         # データフレームをCSV出力する
-        df.to_csv(f"result.csv", index=False)
+        df.to_csv(f"result_{search_roman_alphabet}.csv", index=False)
 
         time.sleep(5)
         # debug

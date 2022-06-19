@@ -6,3 +6,5 @@ settings.py
 /.ipynb_checkpoints
 *.db
 /bkup/
+構築メモ.txt
+*.exe
