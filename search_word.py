@@ -2,9 +2,10 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import settings
 
-SEARCH_WORD = settings.SEARCH_WORD
-
 def search_word(driver:str) -> str:
+    ## 変数初期化
+    SEARCH_WORD = settings.SEARCH_WORD
+    
     ## ログイン後画面
     search_box = driver.find_element_by_css_selector(".p-header__search input")
     search_box.send_keys(SEARCH_WORD)
