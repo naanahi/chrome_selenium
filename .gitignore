@@ -3,4 +3,5 @@ settings.py
 *.pyc
 *.ipynb
 *.csv
-/.ipynb_checkpoints/
+/.ipynb_checkpoints
+*.db

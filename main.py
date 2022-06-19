@@ -7,6 +7,9 @@ from search_items import search_items
 from search_word import search_word
 from search_pages import search_pages
 from dataframe import create_dataframe
+from create_sqlite import create_sqlite
+from read_sqlite import read_sqlite
+
 import pandas as pd
 import urllib.parse as urlparse
 
@@ -39,10 +42,17 @@ def main():
         # データフレームを作成する
         df = create_dataframe(item_info, DF_COLUMNS)
 
-        # データフレームをCSV出力する
-        df.to_csv(f".\\csvdata\\Search_{SEARCH_WORD}_No.{index}.csv", index=False)
-        time.sleep(5)
+        # データフレームをDBに登録する
+        create_sqlite(df)
 
+        # DBの読み出し(条件指定を行いたい)
+        df = read_sqlite()
+
+        # データフレームをCSV出力する
+        df.to_csv(f".\\csvdata\\result.csv", index=False)
+
+        time.sleep(5)
+        # debug
         return df
 
     time.sleep(10)
