@@ -24,3 +24,6 @@ def search_pages(base_url:str, current_url:str) -> list:
         page_lists.append(url)
 
     return page_lists
+
+if __name__ == "__main__":
+    pass

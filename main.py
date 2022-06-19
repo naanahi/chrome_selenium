@@ -6,10 +6,9 @@ import settings
 from search_items import search_items
 from search_word import search_word
 from search_pages import search_pages
+from dataframe import create_dataframe
 import pandas as pd
 import urllib.parse as urlparse
-
-
 
 def main():
     ## 変数初期化
@@ -38,10 +37,10 @@ def main():
         item_info = search_items(URL, search_page)
 
         # データフレームを作成する
-        df = pd.DataFrame(item_info,columns =DF_COLUMNS)
+        df = create_dataframe(item_info, DF_COLUMNS)
 
         # データフレームをCSV出力する
-        df.to_csv(f".\\csvdata\\Search_{SEARCH_WORD}_No.{index}.csv")
+        df.to_csv(f".\\csvdata\\Search_{SEARCH_WORD}_No.{index}.csv", index=False)
         time.sleep(5)
 
         return df
