@@ -1,6 +1,6 @@
-FROM ubuntu:latest
+FROM python:3
 
-RUN apt-get update && apt-get install -y unzip wget vim && apt-get install -y python3 python3-pip
+RUN apt-get update && apt-get install -y unzip wget vim
 
 # google-chrome 変更部分
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add && \
@@ -14,9 +14,7 @@ unzip chromedriver_linux64.zip
 
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/chrome
 
-# 追加設定
-WORKDIR /opt/chrome/
-COPY requirements.txt /opt/chrome/
-COPY *.py /opt/chrome/
-RUN mkdir csvdata
-RUN pip3 install -r requirements.txt
+# 以下から追記
+WORKDIR /usr/src/app/
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
