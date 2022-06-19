@@ -23,6 +23,8 @@ def main():
     options = webdriver.ChromeOptions()
     ## バックグラウンド実行する際に以下を有効にする
     options.add_argument('--headless')
+    ## Dockerで動かすとなぜか怒られるので以下を追加
+    options.add_argument("--no-sandbox")
 
     driver = webdriver.Chrome(options=options)
     driver.get(URL)
@@ -49,7 +51,8 @@ def main():
         df = read_sqlite()
 
         # データフレームをCSV出力する
-        df.to_csv(f".\\csvdata\\result.csv", index=False)
+        df.to_csv(f".\csvdata\result.csv", index=False)
+        print(df)
 
         time.sleep(5)
         # debug
