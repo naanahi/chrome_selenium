@@ -51,8 +51,7 @@ def main():
         df = read_sqlite()
 
         # データフレームをCSV出力する
-        df.to_csv(f".\csvdata\result.csv", index=False)
-        print(df)
+        df.to_csv(f".\\csvdata\\result.csv", index=False)
 
         time.sleep(5)
         # debug
