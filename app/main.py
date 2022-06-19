@@ -25,7 +25,7 @@ def main():
     ## バックグラウンド実行する際に以下を有効にする
     options.add_argument('--headless')
     ## Dockerで動かすとなぜか怒られるので以下を追加
-    ## options.add_argument("--no-sandbox")
+    options.add_argument("--no-sandbox")
 
     driver = webdriver.Chrome(options=options)
     driver.get(URL)
@@ -58,8 +58,6 @@ def main():
         df.to_csv(f"result_{search_roman_alphabet}.csv", index=False)
 
         time.sleep(5)
-        # debug
-        return df
 
     time.sleep(10)
     driver.quit()
