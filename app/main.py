@@ -55,7 +55,7 @@ def main():
         df = read_sqlite(search_roman_alphabet)
 
         # データフレームをCSV出力する
-        df.to_csv(f"result_{search_roman_alphabet}.csv", index=False)
+        df.to_csv(f"./csv/result_{search_roman_alphabet}.csv", index=False)
 
         time.sleep(5)
 
