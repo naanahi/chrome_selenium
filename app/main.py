@@ -49,10 +49,10 @@ def main():
         df = create_dataframe(item_info, DF_COLUMNS)
 
         # データフレームをDBに登録する
-        create_sqlite(df, search_roman_alphabet)
+        create_sqlite(df)
 
         # DBの読み出し(条件指定を行いたい)
-        df = read_sqlite(search_roman_alphabet)
+        df = read_sqlite(SEARCH_WORD)
 
         # データフレームをCSV出力する
         df.to_csv(f"./csv/result_{search_roman_alphabet}.csv", index=False)
