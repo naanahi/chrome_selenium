@@ -16,7 +16,7 @@ ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/chrom
 
 # 以下から追記
 WORKDIR /usr/src/app/
-RUN mkdir db
-RUN mkdir csv
+RUN mkdir ./db
+RUN mkdir ./csv
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
