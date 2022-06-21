@@ -4,7 +4,7 @@ import  sqlite3
 import settings
 
 def read_sqlite(search_word):
-    file_sqlite3 = "./db/items.db"
+    file_sqlite3 = "../db/items.db"
     DF_COLUMNS = settings.DF_COLUMNS
     conn = sqlite3.connect(file_sqlite3)
     df = pd.read_sql_query(f'SELECT DISTINCT * FROM items where "{DF_COLUMNS[0]}" LIKE "%{search_word}%"', conn)

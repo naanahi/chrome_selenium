@@ -20,5 +20,11 @@ WORKDIR /usr/src/sh/
 COPY ./sh/naanahi.sh /usr/src/sh/
 
 WORKDIR /usr/src/app/
+# Pythonファイルのコピー
+COPY ./app/*.py ./
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
+
+# 共有ディレクトリの作成
+RUN mkdir /usr/src/csv/
+RUN mkdir /usr/src/db/
