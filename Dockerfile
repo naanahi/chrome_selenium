@@ -1,6 +1,6 @@
 FROM python:3
 
-RUN apt-get update && apt-get install -y unzip wget vim
+RUN apt-get update && apt-get install -y unzip wget vim 
 
 # google-chrome 変更部分
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add && \
@@ -15,8 +15,10 @@ unzip chromedriver_linux64.zip
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/chrome
 
 # 以下から追記
+RUN apt-get install -y cron
+WORKDIR /usr/src/sh/
+COPY ./sh/naanahi.sh /usr/src/sh/
+
 WORKDIR /usr/src/app/
-RUN mkdir ./db
-RUN mkdir ./csv
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt

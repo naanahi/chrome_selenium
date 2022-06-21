@@ -1,0 +1,1 @@
+/usr/local/bin/python3.10 /usr/src/app/main.py
